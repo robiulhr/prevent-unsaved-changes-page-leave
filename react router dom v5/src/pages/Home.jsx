@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import '../style.css'
-import Nav from './component/Nav'
-import Form from './component/Form'
+import '../../style.css'
+import Nav from '../component/Nav'
+import Form from '../component/Form'
 // import { useBeforeUnload } from 'react-router-dom'
 
 function Home () {

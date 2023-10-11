@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import '../style.css'
-import Nav from './component/Nav'
-import Form from './component/Form'
+import '../../style.css'
+import Nav from '../component/Nav'
+import Form from '../component/Form'
 function Profile () {
   console.log('profle has been run')
   const [dirty, setDirty] = useState(false)
