@@ -11,12 +11,13 @@ export default function FormPrompt ({ dirty }) {
     // The popstate event is fired each time when the current history entry changes.
     const confirmValue = confirm('You pressed a Back button! Are you sure?!')
     if (confirmValue === true) {
-      navigate(window.location.pathname)
       prevPopStateHandler.current &&
         window.removeEventListener('popstate', prevPopStateHandler.current)
+        return true
     } else {
       // Stay on the current page.
       navigate(currentRoute)
+      return false
     }
   }
   usePrompt(dirty, popStateHandler)
@@ -32,4 +33,5 @@ export default function FormPrompt ({ dirty }) {
     ),
     { capture: true }
   )
+  return null
 }
