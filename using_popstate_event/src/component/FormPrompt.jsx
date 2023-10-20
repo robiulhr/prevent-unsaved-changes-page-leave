@@ -1,12 +1,12 @@
 // FormPrompt.js
-
-import { useNavigate } from 'react-router-dom'
+import { useCallback } from 'react'
+import { useNavigate, useBeforeUnload } from 'react-router-dom'
 import usePrompt from '../hooks/usePrompt'
 
-function FormPrompt ({ isDirty }) {
+export default function FormPrompt ({ dirty }) {
   const navigate = useNavigate()
   const currentRoute = window.location.pathname
-  const popStateHandler = function (event) {
+  const popStateHandler = function (prevPopStateHandler, event) {
     event.preventDefault()
     // The popstate event is fired each time when the current history entry changes.
     const confirmValue = confirm('You pressed a Back button! Are you sure?!')
@@ -19,16 +19,16 @@ function FormPrompt ({ isDirty }) {
       navigate(currentRoute)
     }
   }
-  usePrompt(isDirty, popStateHandler)
+  usePrompt(dirty, popStateHandler)
   useBeforeUnload(
     useCallback(
       event => {
-        if (isDirty) {
+        if (dirty) {
           event.preventDefault()
           event.returnValue = ''
         }
       },
-      [isDirty]
+      [dirty]
     ),
     { capture: true }
   )

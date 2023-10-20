@@ -1,18 +1,18 @@
-import { useRef } from 'react'
+import { useEffect,useRef } from "react"
 
-function usePrompt ({ isDirty, popStateHandler }) {
+function usePrompt ( dirty, popStateHandler) {
   const prevPopStateHandler = useRef()
   useEffect(() => {
-    if (isDirty) {
+    if (dirty) {
       prevPopStateHandler.current &&
         window.removeEventListener('popstate', prevPopStateHandler.current)
-      prevPopStateHandler.current = popStateHandler
-      window.addEventListener('popstate', popStateHandler, false)
+      prevPopStateHandler.current = popStateHandler.bind(null, prevPopStateHandler)
+      window.addEventListener('popstate', prevPopStateHandler.current, false)
     } else {
       prevPopStateHandler.current &&
         window.removeEventListener('popstate', prevPopStateHandler.current)
     }
-  }, [isDirty])
+  }, [dirty])
 }
 
-export default usePrompt;
+export default usePrompt
