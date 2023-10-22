@@ -1,4 +1,4 @@
-// FormPrompt.js
+// FormPrompt.jsx
 import { useCallback } from 'react'
 import { useNavigate, useBeforeUnload } from 'react-router-dom'
 import usePrompt from '../hooks/usePrompt'

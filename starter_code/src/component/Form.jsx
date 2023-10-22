@@ -1,13 +1,15 @@
 import { useState } from 'react'
 
-export default function Form () {
+export default function Form ({setDirty}) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   function nameChangeHandler (e) {
     setName(e.target.value)
+    setDirty(true)
   }
   function emailChangeHandler (e) {
     setEmail(e.target.value)
+    setDirty(true)
   }
 
   return (
