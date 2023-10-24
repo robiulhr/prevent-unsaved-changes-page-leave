@@ -6,7 +6,6 @@ export default function FormPrompt ({ dirty }) {
   const navigate = useNavigate()
   const currentRoute = window.location.pathname
   const locationChangeHandler = function (unblockNavigationRef, transition) {
-    console.log(unblockNavigationRef, transition)
     if (transition.action === 'POP') {
       const confirmValue = confirm('are you sure?')
       if (confirmValue) {
