@@ -8,15 +8,16 @@ export default function FormPrompt({ dirty }) {
   let { unblockNavigationRef } = useContext(NavigationRef);
   const navigate = useNavigate();
   const currentRoute = window.location.pathname;
-
   const locationChangeHandler = useCallback(function (transition) {
-    const confirmValue = confirm("are you sure?");
-    if (confirmValue) {
-      unblockNavigationRef.current?.();
-      return true;
-    } else {
-      navigate(currentRoute);
-      return false;
+    if (transition.action === "POP") {
+      const confirmValue = confirm("are you sure?");
+      if (confirmValue) {
+        unblockNavigationRef.current?.();
+        return true;
+      } else {
+        navigate(currentRoute);
+        return false;
+      }
     }
   });
 

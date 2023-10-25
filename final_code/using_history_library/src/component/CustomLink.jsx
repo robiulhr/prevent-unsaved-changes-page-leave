@@ -9,11 +9,11 @@ export default function CustomLink({ children, ...props }) {
     <Link
       onClick={(e) => {
         e.preventDefault();
-        if (unblockNavigationRef.current) {
-          let navigateTo;
-          navigateTo = blockHandlerRef.current();
-          if (navigateTo) {
+        if (unblockNavigationRef.current && blockHandlerRef.current) {
+          const confirmed = confirm("are you sure?");
+          if (confirmed) {
             navigate(path);
+            unblockNavigationRef.current();
             unblockNavigationRef.current = null;
             blockHandlerRef.current = null;
           }

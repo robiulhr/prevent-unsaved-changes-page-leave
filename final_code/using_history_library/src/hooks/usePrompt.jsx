@@ -7,7 +7,7 @@ export default function usePrompt(dirty, locationChangeHandler) {
   const history = createBrowserHistory();
   useEffect(() => {
     if (dirty) {
-      unblockNavigationRef.current?.();
+      if (unblockNavigationRef.current) unblockNavigationRef.current();
       unblockNavigationRef.current = history.listen(locationChangeHandler);
       blockHandlerRef.current = locationChangeHandler;
     }
