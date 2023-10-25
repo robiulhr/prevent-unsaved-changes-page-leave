@@ -1,20 +1,21 @@
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { PopstateContext } from "../context/PopstateContext";
+import { NavigationRef } from "../context/NavigationRefContext";
 export default function CustomLink({ children, ...props }) {
   const { onClick: passedClickHandler, to: path, ...slicedProps } = props;
   const navigate = useNavigate();
-  const { prevPopStateHandler, setPrevPopStateHandler } = useContext(PopstateContext);
+  const { unblockNavigationRef, blockHandlerRef } = useContext(NavigationRef);
   return (
     <Link
       onClick={(e) => {
         e.preventDefault();
-        if (prevPopStateHandler) {
+        if (unblockNavigationRef.current) {
           let navigateTo;
-          navigateTo = prevPopStateHandler && prevPopStateHandler();
+          navigateTo = blockHandlerRef.current();
           if (navigateTo) {
             navigate(path);
-            setPrevPopStateHandler(null);
+            unblockNavigationRef.current = null;
+            blockHandlerRef.current = null;
           }
         } else {
           navigate(path);

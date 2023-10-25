@@ -1,11 +1,11 @@
-import { useState } from 'react'
+import { useState } from "react";
+import "../../style.css";
+import Nav from "../component/Nav";
+import Form from "../component/Form";
+import FormPrompt from "../component/FormPrompt";
 
-import '../../style.css'
-import Nav from '../component/Nav'
-import Form from '../component/Form'
-import FormPrompt from '../component/FormPrompt'
-function Profile () {
-  const [dirty, setDirty] = useState(false)
+function Profile() {
+  const [dirty, setDirty] = useState(false);
   return (
     <>
       <FormPrompt dirty={dirty} />
@@ -15,7 +15,7 @@ function Profile () {
         <Form setDirty={setDirty} />
       </main>
     </>
-  )
+  );
 }
 
-export default Profile
+export default Profile;

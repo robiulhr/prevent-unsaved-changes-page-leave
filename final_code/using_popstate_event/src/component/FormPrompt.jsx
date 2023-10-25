@@ -9,7 +9,7 @@ export default function FormPrompt({ dirty }) {
   const navigate = useNavigate();
   const currentRoute = window.location.pathname;
   const popStateHandler = useCallback(
-    function () {
+    function (e) {
       // The popstate event is fired each time when the current history entry changes.
       const confirmValue = confirm("You pressed a Back button! Are you sure?!");
       if (confirmValue) {

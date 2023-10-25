@@ -1,17 +1,15 @@
-import { createBrowserHistory } from 'history'
-import { useRef, useEffect } from 'react'
+import { useEffect, useContext } from "react";
+import { NavigationRef } from "../context/NavigationRefContext";
+import { createBrowserHistory } from "history";
 
-export default function usePrompt (dirty, locationChangeHandler) {
-  const history = createBrowserHistory()
-  const unblockNavigationRef = useRef()
+export default function usePrompt(dirty, locationChangeHandler) {
+  let { unblockNavigationRef, blockHandlerRef } = useContext(NavigationRef);
+  const history = createBrowserHistory();
   useEffect(() => {
     if (dirty) {
-      unblockNavigationRef.current?.()
-      unblockNavigationRef.current = history.listen(
-        locationChangeHandler.bind(null, unblockNavigationRef)
-      )
-    } else {
-      unblockNavigationRef.current?.()
+      unblockNavigationRef.current?.();
+      unblockNavigationRef.current = history.listen(locationChangeHandler);
+      blockHandlerRef.current = locationChangeHandler;
     }
-  }, [dirty, history])
+  }, [dirty, history]);
 }
