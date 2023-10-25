@@ -5,7 +5,6 @@ import Form from '../component/Form'
 import FormPrompt from '../component/FormPrompt'
 function Home () {
   const [dirty, setDirty] = useState(false)
-
   return (
     <>
       <FormPrompt dirty={dirty} />

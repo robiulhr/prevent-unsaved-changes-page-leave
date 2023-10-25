@@ -1,18 +1,15 @@
-import { useEffect,useRef } from "react"
+import { useEffect, useContext } from "react";
+import { PopstateContext } from "../context/PopstateContext";
 
-function usePrompt ( dirty, popStateHandler) {
-  const prevPopStateHandler = useRef()
+function usePrompt(dirty, popStateHandler) {
+  let prevPopStateHandler = useContext(PopstateContext);
   useEffect(() => {
     if (dirty) {
-      prevPopStateHandler.current &&
-        window.removeEventListener('popstate', prevPopStateHandler.current)
-      prevPopStateHandler.current = popStateHandler.bind(null, prevPopStateHandler)
-      window.addEventListener('popstate', prevPopStateHandler.current, false)
-    } else {
-      prevPopStateHandler.current &&
-        window.removeEventListener('popstate', prevPopStateHandler.current)
+      prevPopStateHandler.current && window.removeEventListener("popstate", prevPopStateHandler.current);
+      prevPopStateHandler.current = popStateHandler;
+      window.addEventListener("popstate", popStateHandler, false);
     }
-  }, [dirty])
+  }, [dirty]);
 }
 
-export default usePrompt
+export default usePrompt;

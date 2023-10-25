@@ -1,9 +1,9 @@
-import { Link } from 'react-router-dom'
-export default function Nav () {
+import CustomLink from "./CustomLink";
+export default function Nav() {
   return (
     <nav>
-      <Link to={'/'}>Home</Link>
-      <Link to={'/profile'}>Profile</Link>
+      <CustomLink to={"/"}>Home</CustomLink>
+      <CustomLink to={"/profile"}>Profile</CustomLink>
     </nav>
-  )
+  );
 }
