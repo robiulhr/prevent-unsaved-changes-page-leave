@@ -1,9 +1,9 @@
 import CustomLink from "./CustomLink";
-export default function Nav() {
+export default function Nav({formData}) {
   return (
     <nav>
-      <CustomLink to={"/"}>Home</CustomLink>
-      <CustomLink to={"/profile"}>Profile</CustomLink>
+      <CustomLink formData={formData} to={"/"}>Home</CustomLink>
+      <CustomLink formData={formData} to={"/profile"}>Profile</CustomLink>
     </nav>
   );
 }

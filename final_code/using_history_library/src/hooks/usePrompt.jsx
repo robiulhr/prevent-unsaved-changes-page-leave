@@ -11,5 +11,5 @@ export default function usePrompt(dirty, locationChangeHandler) {
       unblockNavigationRef.current = history.listen(locationChangeHandler);
       blockHandlerRef.current = locationChangeHandler;
     }
-  }, [dirty, history]);
+  }, [dirty]);
 }

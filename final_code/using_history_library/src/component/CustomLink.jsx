@@ -1,10 +1,11 @@
 import { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { NavigationRef } from "../context/NavigationRefContext";
 export default function CustomLink({ children, ...props }) {
-  const { onClick: passedClickHandler, to: path, ...slicedProps } = props;
+  const { onClick: passedClickHandler, to: path, formData, ...slicedProps } = props;
   const navigate = useNavigate();
   const { unblockNavigationRef, blockHandlerRef } = useContext(NavigationRef);
+  const location = useLocation();
   return (
     <Link
       onClick={(e) => {
@@ -16,6 +17,7 @@ export default function CustomLink({ children, ...props }) {
             unblockNavigationRef.current();
             unblockNavigationRef.current = null;
             blockHandlerRef.current = null;
+            localStorage.setItem(location.pathname, JSON.stringify(formData));
           }
         } else {
           navigate(path);
