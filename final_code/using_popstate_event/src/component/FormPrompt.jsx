@@ -1,11 +1,12 @@
 // FormPrompt.jsx
 import { useCallback, useContext } from "react";
-import { useNavigate, useBeforeUnload } from "react-router-dom";
+import { useNavigate, useBeforeUnload, useLocation } from "react-router-dom";
 import usePrompt from "../hooks/usePrompt";
 import { PopstateContext } from "../context/PopstateContext";
 
-export default function FormPrompt({ dirty }) {
+export default function FormPrompt({ dirty, formData }) {
   let prevPopStateHandler = useContext(PopstateContext);
+  const location = useLocation();
   const navigate = useNavigate();
   const currentRoute = window.location.pathname;
   const popStateHandler = useCallback(
@@ -15,6 +16,7 @@ export default function FormPrompt({ dirty }) {
       if (confirmValue) {
         prevPopStateHandler.current && window.removeEventListener("popstate", prevPopStateHandler.current);
         prevPopStateHandler.current = null;
+        localStorage.setItem(location.pathname, JSON.stringify(formData));
         return true;
       } else {
         // Stay on the current page.
