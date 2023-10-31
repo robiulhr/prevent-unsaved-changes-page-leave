@@ -2,7 +2,7 @@ import { useEffect, useContext } from "react";
 import { NavigationRef } from "../context/NavigationRefContext";
 import { createBrowserHistory } from "history";
 
-export default function usePrompt(dirty, locationChangeHandler) {
+export default function usePrompt(dirty,formData, locationChangeHandler) {
   let { unblockNavigationRef, blockHandlerRef } = useContext(NavigationRef);
   const history = createBrowserHistory();
   useEffect(() => {
@@ -11,5 +11,5 @@ export default function usePrompt(dirty, locationChangeHandler) {
       unblockNavigationRef.current = history.listen(locationChangeHandler);
       blockHandlerRef.current = locationChangeHandler;
     }
-  }, [dirty]);
+  }, [dirty, formData]);
 }
