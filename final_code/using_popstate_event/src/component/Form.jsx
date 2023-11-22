@@ -1,4 +1,4 @@
-export default function Form({ setDirty, formData, dispatch }) {
+export default function Form({ formData, dispatch }) {
   function nameChangeHandler(e) {
     dispatch({ type: "change_name", name: e.target.value });
   }

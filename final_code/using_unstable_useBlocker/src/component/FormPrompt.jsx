@@ -1,38 +1,38 @@
-import { useCallback } from 'react'
+import { useCallback } from "react";
 
-import { useBeforeUnload } from 'react-router-dom'
-import usePrompt from '../hooks/usePrompt'
+import { useBeforeUnload, useLocation } from "react-router-dom";
+import usePrompt from "../hooks/usePrompt";
 
-const stepLinks = ['/contact', '/education', '/about', '/confirm']
-
-const FormPrompt = ({ hasUnsavedChanges }) => {
+const stepLinks = ["/", "/profile"];
+const FormPrompt = ({ dirty, formData }) => {
+  const location = useLocation();
   const onLocationChange = useCallback(
     ({ nextLocation }) => {
-      if (!stepLinks.includes(nextLocation.pathname) && hasUnsavedChanges) {
-        return !window.confirm(
-          'You have unsaved changes, are you sure you want to leave?'
-        )
+      let confirmValue = false;
+      if (stepLinks.includes(nextLocation.pathname) && dirty) {
+        confirmValue = !window.confirm("You have unsaved changes, are you sure you want to leave?");
       }
-      return false
+      if (!confirmValue) localStorage.setItem(location.pathname, JSON.stringify(formData));
+      return confirmValue;
     },
-    [hasUnsavedChanges]
-  )
+    [dirty, formData]
+  );
 
-  usePrompt(onLocationChange, hasUnsavedChanges)
+  usePrompt(onLocationChange, dirty);
   useBeforeUnload(
     useCallback(
-      event => {
-        if (hasUnsavedChanges) {
-          event.preventDefault()
-          event.returnValue = ''
+      (event) => {
+        if (dirty) {
+          event.preventDefault();
+          event.returnValue = "";
         }
       },
-      [hasUnsavedChanges]
+      [dirty]
     ),
     { capture: true }
-  )
+  );
 
-  return null
-}
+  return null;
+};
 
-export default FormPrompt
+export default FormPrompt;
