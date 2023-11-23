@@ -1,35 +1,26 @@
-import '../../style.css'
-import Nav from '../component/Nav'
-import Form from '../component/Form'
-import { useEffect, useState, useCallback } from 'react'
-function Home () {
-  const [dirty, setDirty] = useState(false)
-
-  const beforeunloadHandler = useCallback(
-    function (e) {
-      if (dirty) {
-        e.preventDefault()
-        e.returnValue = ''
-      }
-    },
-    [dirty]
-  )
-
-  useEffect(() => {
-    window.addEventListener('beforeunload', beforeunloadHandler)
-    return () => {
-      window.removeEventListener('beforeunload', beforeunloadHandler)
-    }
-  }, [beforeunloadHandler])
+<<<<<<< HEAD
+import { useReducer, useState } from "react";
+=======
+import { useReducer } from "react";
+>>>>>>> c79b2ba (updated the starter code)
+import "../../style.css";
+import Nav from "../component/Nav";
+import Form from "../component/Form";
+import formReducer from "../reducer/formReducer";
+function Home() {
+  const [formData, dispatch] = useReducer(formReducer, {
+    name: "",
+    email: "",
+  });
   return (
     <>
       <Nav />
       <main>
         <h1>Welcome to Home Page</h1>
-        <Form setDirty={setDirty} />
+        <Form formData={formData} dispatch={dispatch} />
       </main>
     </>
-  )
+  );
 }
 
-export default Home
+export default Home;
