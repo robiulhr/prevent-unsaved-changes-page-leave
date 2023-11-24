@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import { useReducer, useState } from "react";
-=======
 import { useReducer } from "react";
->>>>>>> c79b2ba (updated the starter code)
 import "../../style.css";
 import Nav from "../component/Nav";
 import Form from "../component/Form";
